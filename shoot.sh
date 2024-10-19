@@ -60,7 +60,7 @@ perform_dns_scan() {
     cat "$scan_path/roots.txt" | shuffledns -w "$ppath/lists/subdomains-top1million-20000.txt" -r "$ppath/lists/resolvers.txt" | anew "$scan_path/subs.txt" | wc -l
 
     ## DNS Resolution - Resolve discovered Subdomains
-    puredns resolve "$scan_path/subs.txt" -r "$ppath/lists/resolvers.txt" -w "$ppath/resolved.txt" | wc -l
+    puredns resolve "$scan_path/subs.txt" -r "$ppath/lists/resolvers.txt" -w "$scan_path/resolved.txt" | wc -l
     dnsx -l "$scan_path/resolved.txt" -json -o "$scan_path/dns.json" | jq -r '.a?[]?' | anew "$scan_path/ips.txt" | wc -l
 }
 
